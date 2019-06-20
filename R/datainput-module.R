@@ -75,7 +75,7 @@ uploadFilePanel <- function(ns) {
 #' @import rhandsontable
 dataInputModuleUI <- function(id,
                               server_access = getOption("pavian.server_access", default = FALSE),
-                              start_with = getOption("pavian.start_data_input_with", "Upload files")) {
+                              start_with = getOption("pavian.start_data_input_with", "Use data on server")) {
   ns <- NS(id)
   
   shiny::tagList(box(
@@ -99,8 +99,9 @@ dataInputModuleUI <- function(id,
         width = 12,
         title = "Data Source",
         selected = start_with,
-        uploadFilePanel(ns),
         serverDataPanel(ns),
+        uploadFilePanel(ns),
+       
         exampleDataPanel(ns)
       )
     } else {
