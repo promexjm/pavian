@@ -44,6 +44,41 @@ To generate a BAM file, download a genome of interest, and align to it with an a
 ")
     ),
     tabBox(width = 12,
+           tabPanel(
+             title = "Use data on server",
+             id = "server_dir",
+             " Select a directory in the file browser and press 'Read selected directories' to load it into Pavian.",
+             " You may also use wildcards to directly upload specified paths.",
+             br(),
+             uiOutput(ns("warn_Rsamtools_server"), width = 12),
+             div(id="server_data_dir_div",
+                 shinyWidgets::searchInput(ns("search_data_dir"),
+                                           label = "Specify directory on machine running Pavian",
+                                           value = getOption("pavian.server_dir", ""),
+                                           btnReset = icon("level-up", lib="glyphicon"),
+                                           resetValue = NULL,
+                                           width = "100%",
+                                           btnSearch = icon("server"))),
+             div(style="max-height:400px; overflow-y: scroll",
+                 shinyFileTree::shinyFileTreeOutput(ns('file_tree'))
+             ),
+             shinyjs::hidden(actionButton(ns("btn_read_tree_dirs"), "Read selected bam file")),
+             shinyjs::hidden(div(id=ns("align_view_rsamtools_server"),
+                                 
+                                 uiOutput(ns("info_server")),
+                                 shiny::uiOutput(ns("bam_name_server")),
+                                 br(),
+                                 DT::dataTableOutput(ns("table_server")),
+                                 br(),
+                                 shiny::plotOutput(ns("sample_align_server"), brush = brushOpts(id=ns("align_brush"), direction = "x", resetOnNew = TRUE), height = "200px"),
+                                 shiny::plotOutput(ns("plot_brush_server"), height = "200px"),
+                                 
+                                 downloadLink(ns("pdf_server"), "PDF"),
+                                 downloadLink(ns("pdf_brush_server"), "PDF"))),
+             uiOutput(ns('rud'))
+             
+           ),     
+           
       tabPanel(
         title = "View alignment",
         uiOutput(ns("warn_Rsamtools"), width = 12),
@@ -65,40 +100,7 @@ To generate a BAM file, download a genome of interest, and align to it with an a
         downloadLink(ns("pdf_brush"), "PDF")))
       ),
       
-      tabPanel(
-        title = "Use data on server",
-        id = "server_dir",
-        " Select a directory in the file browser and press 'Read selected directories' to load it into Pavian.",
-        " You may also use wildcards to directly upload specified paths.",
-        br(),
-        uiOutput(ns("warn_Rsamtools_server"), width = 12),
-        div(id="server_data_dir_div",
-            shinyWidgets::searchInput(ns("search_data_dir"),
-                                      label = "Specify directory on machine running Pavian",
-                                      value = getOption("pavian.server_dir", ""),
-                                      btnReset = icon("level-up", lib="glyphicon"),
-                                      resetValue = NULL,
-                                      width = "100%",
-                                      btnSearch = icon("server"))),
-        div(style="max-height:400px; overflow-y: scroll",
-            shinyFileTree::shinyFileTreeOutput(ns('file_tree'))
-        ),
-        shinyjs::hidden(actionButton(ns("btn_read_tree_dirs"), "Read selected dam file")),
-        shinyjs::hidden(div(id=ns("align_view_rsamtools_server"),
-                            
-                            uiOutput(ns("info_server")),
-                            shiny::uiOutput(ns("bam_name_server")),
-                            br(),
-                            DT::dataTableOutput(ns("table_server")),
-                            br(),
-                            shiny::plotOutput(ns("sample_align_server"), brush = brushOpts(id=ns("align_brush"), direction = "x", resetOnNew = TRUE), height = "200px"),
-                            shiny::plotOutput(ns("plot_brush_server"), height = "200px"),
-                            
-                            downloadLink(ns("pdf_server"), "PDF"),
-                            downloadLink(ns("pdf_brush_server"), "PDF"))),
-        uiOutput(ns('rud'))
-        
-      ),
+     
       
       tabPanel(
         title = "Download genomes for alignment",
