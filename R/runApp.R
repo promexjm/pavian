@@ -3,7 +3,7 @@
 #'
 #' @param cache_dir Directory to save temporary files.
 #' @param server_dir Directory for sample files.
-#' @param server_bam_dir Directory for sample bam files.
+#' @param alignment_server_dir Directory for sample bam files.
 #' @param server_access Allow users to change server directory
 #' @param load_server_directory Load server directory.
 #' @param load_example_data Load example data.
@@ -15,7 +15,7 @@
 #' @export
 runApp <- function(cache_dir = "cache",
                    server_dir = Sys.glob("~"),
-                   c = Sys.glob("~"),
+                   alignment_server_dir = Sys.glob("~"),
                    server_access = TRUE,
                    load_example_data = FALSE,
                    load_server_directory = FALSE,
