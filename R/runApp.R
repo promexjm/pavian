@@ -3,6 +3,7 @@
 #'
 #' @param cache_dir Directory to save temporary files.
 #' @param server_dir Directory for sample files.
+#' @param server_bam_dir Directory for sample bam files.
 #' @param server_access Allow users to change server directory
 #' @param load_server_directory Load server directory.
 #' @param load_example_data Load example data.
@@ -14,6 +15,7 @@
 #' @export
 runApp <- function(cache_dir = "cache",
                    server_dir = Sys.glob("~"),
+                   c = Sys.glob("~"),
                    server_access = TRUE,
                    load_example_data = FALSE,
                    load_server_directory = FALSE,
@@ -58,6 +60,7 @@ runApp <- function(cache_dir = "cache",
     pavian.running_sessions = 0,
     pavian.cache_dir = cache_dir,
     pavian.server_dir = server_dir,
+    pavian.alignment_server_dir = alignment_server_dir,
     pavian.server_access = server_access,
     pavian.load_server_directory = load_server_directory,
     pavian.load_example_data = load_example_data,
