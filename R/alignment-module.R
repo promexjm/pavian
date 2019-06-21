@@ -54,7 +54,7 @@ To generate a BAM file, download a genome of interest, and align to it with an a
              div(id="server_data_dir_div",
                  shinyWidgets::searchInput(ns("search_data_dir"),
                                            label = "Specify directory on machine running Pavian",
-                                           value = getOption("pavian.server_dir", ""),
+                                           value = getOption("pavian.alignment_server_dir", ""),
                                            btnReset = icon("level-up", lib="glyphicon"),
                                            resetValue = NULL,
                                            width = "100%",
